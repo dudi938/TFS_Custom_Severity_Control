@@ -1,0 +1,102 @@
+{
+    "manifestVersion": 1,
+    "id": "hitcount-control",
+    "version": "1.2.37",
+    "name": "Plus/minus integer control",
+    "scopes": [
+        "vso.work",
+        "vso.work_write"
+    ],
+    "description": "Easily change your integer values with a plus/minus control.",
+    "publisher": "davidgershtenkoren",
+    "icons": {
+        "default": "img/logo.png"
+    },
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "tags": [
+        "Work Item",
+        "Work Item control",
+        "Usability"
+    ],
+    "content": {
+        "details": {
+            "path": "details.md"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/Microsoft/vsts-extension-integer-control"
+    },
+    "links": {
+        "support": {
+            "uri": "https://github.com/Microsoft/vsts-extension-integer-control/issues"
+        },
+        "learn": {
+            "uri": "https://github.com/Microsoft/vsts-extension-integer-control/blob/master/README.md"
+        },
+        "repository": {
+            "uri": "https://github.com/Microsoft/vsts-extension-integer-control"
+        },
+        "issues": {
+            "uri": "https://github.com/Microsoft/vsts-extension-integer-control/issues"
+        }
+    },
+    "files": [
+        {
+            "path": "img",
+            "addressable": true
+        },
+        {
+            "path": "scripts",
+            "addressable": true
+        },
+        {
+            "path": "styles",
+            "addressable": true
+        },
+        {
+            "path": "index.html",
+            "addressable": true
+        }
+    ],
+    "categories": [
+        "Plan and track"
+    ],
+    "contributions": [
+        {
+            "id": "hitcount-control",
+            "description": "Easily change your integer values with a plus/minus control.",
+            "type": "ms.vss-work-web.work-item-form-control",
+            "targets": [
+                "ms.vss-work-web.work-item-form"
+            ],
+            "properties": {
+                "name": "Plus/minus integer control",
+                "uri": "index.html",
+                "height": 28,
+                "inputs": [
+                    {
+                        "id": "FieldName",
+                        "name": "Select the field for this control. Example: Story Points",
+                        "description": "The field associated with the control.",
+                        "type": "WorkItemField",
+                        "properties": {
+                            "workItemFieldTypes": [
+                                "Integer",
+                                "Double"
+                            ]
+                        },
+                        "validation": {
+                            "dataType": "String",
+                            "isRequired": true
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
