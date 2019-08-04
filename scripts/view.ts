@@ -26,9 +26,6 @@ export class View {
         var hitcount = $("<input />").attr("type", "number");
         wrap.append(hitcount);
 
-        //this.currentValue = String(this.model.getCurrentValue());
-
-        //hitcount.val(this.currentValue);
         hitcount.attr("aria-valuenow", this.currentValue);
         hitcount.change(() => {
             this._inputChanged();
@@ -45,25 +42,8 @@ export class View {
                 }
             }
         });
-
-        // var uptick = $("<div />");
-        // uptick.addClass("bowtie-icon bowtie-math-plus-box");
-        // uptick.hide();
-        // uptick.click(() => {
-        //     this.onCalcEvent();
-        // });
-
-        // var downtick = $("<div />");
-        // downtick.addClass("bowtie-icon bowtie-math-minus-box");
-        // downtick.hide();
-        // downtick.click(() => {
-        //     this.onDownTick();
-        // });
-
-
          var calc = $("<div />");
-         //var calcButton = $("<input />").attr("type", "button").attr("value", "Calculate severity");
-         //calc.append(calcButton);
+
          calc.css("border", "2px solid green");
          calc.css("border-radius", "5px");
          calc.css("padding", "3px")
@@ -73,9 +53,9 @@ export class View {
 
 
 
-         calc.click(() => {
-             this.onCalcEvent();
-         });
+         //calc.click(() => {
+             //this.onCalcEvent();
+         //});
 
 
 
@@ -104,6 +84,8 @@ export class View {
         // });
 
         $("body").append(container);
+
+        this.onCalcEvent();
     }
 
     private _inputChanged(): void {

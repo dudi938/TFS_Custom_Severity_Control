@@ -40,35 +40,12 @@ export class Controller {
                             this._updateInternal(this._model.getCurrentValue());
                         }, () => {
 
-                            console.log('************Debug***************')
-                            service.getFieldValue('Task Frequency').then((TaskFrequencyvid) =>{
-                                service.getFieldValue('Repeatable').then((Repeatable) =>{
-                                    service.getFieldValue('Implication').then((Implication) =>{
-                                        console.log('Task Frequency=' + TaskFrequencyvid)
-                                        console.log('Repeatable=' + Repeatable)
-                                        console.log('Implication=' + Implication)
-
-
-
-                                        if (TaskFrequencyvid === null) {
-                                            alert("Missing input in Task Frequency field");
-                                            return
-                                        }
-                                        if (Repeatable === null) {
-                                            alert("Missing input in Repeatable field");
-                                            return
-                                        }
-                                        if (Implication === null) {
-                                            alert("Missing input in Implication field");
-                                            return
-                                        }
-
-                                        this._model.calcValueFromInputs(Number(TaskFrequencyvid),Number(Repeatable),Number(Implication));
-                                        this._updateInternal(this._model.getCurrentValue());
-                                    })
-                                })
+                            service.getFieldValue('Planed Finish Date').then((PlanedFinishDate) =>{
+                                this._model.calcValueFromInputs(String(PlanedFinishDate));
+                                this._updateInternal(this._model.getCurrentValue());
+                                console.log('**Debug** PlanedFinishDate = ' + PlanedFinishDate)
+                                console.log('**Debug** CurrentValue = ' + this._model.getCurrentValue())
                             })
-                            console.log('************Debug***************')
                         });
                     }, this._handleError
                 ).then(null, this._handleError);

@@ -33,25 +33,12 @@ export class Model {
         return this._currentValue;
     }
 
-    public calcValueFromInputs(value1: number,value2: number, value3: number ) {
-        // if (value1 === undefined || value1 === null) {
-        //     alert("Undefined value");
-        //     return
-        // }
-        // if (value2 === undefined || value2 === null) {
-        //     alert("Undefined value");
-        //     return
-        // }
-        // if (value3 === undefined || value3 === null) {
-        //     alert("Undefined value");
-        //     return
-        // }
-        // if (value4 === undefined || value4 === null) {
-        //     alert("Undefined value");
-        //     return
-        // }
+    public calcValueFromInputs(sPlanedFinishDate: string ) {
+        let PlanedFinishDate = new Date(sPlanedFinishDate)
 
 
-        this._currentValue = (value1 + value2 ) * value3;
+        //this._currentValue = PlanedFinishDate + 0;
+        var dateDiff = Math.abs(PlanedFinishDate.getTime() - Date.now());
+        this._currentValue = Math.ceil(dateDiff / (1000 * 3600 * 24));
     }
 }
