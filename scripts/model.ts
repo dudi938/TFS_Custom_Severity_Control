@@ -38,7 +38,7 @@ export class Model {
 
 
         //this._currentValue = PlanedFinishDate + 0;
-        var dateDiff = Math.abs(PlanedFinishDate.getTime() - Date.now());
+        var dateDiff = PlanedFinishDate.getTime() - Date.now();
         this._currentValue = Math.ceil(dateDiff / (1000 * 3600 * 24));
     }
 }

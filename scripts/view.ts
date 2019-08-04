@@ -53,9 +53,9 @@ export class View {
 
 
 
-         //calc.click(() => {
-             //this.onCalcEvent();
-         //});
+         calc.click(() => {
+             this.onCalcEvent();
+         });
 
 
 

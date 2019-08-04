@@ -1,13 +1,13 @@
 {
     "manifestVersion": 1,
-    "id": "hitcount-control",
-    "version": "1.2.38",
-    "name": "Plus/minus integer control",
+    "id": "Days calc",
+    "version": "1.2.43",
+    "name": "Days calc",
     "scopes": [
         "vso.work",
         "vso.work_write"
     ],
-    "description": "Easily change your integer values with a plus/minus control.",
+    "description": "Calc the days remaining until need delever the task",
     "publisher": "davidgershtenkoren",
     "icons": {
         "default": "img/logo.png"
@@ -68,8 +68,8 @@
     ],
     "contributions": [
         {
-            "id": "hitcount-control",
-            "description": "Easily change your integer values with a plus/minus control.",
+            "id": "Days-Calc",
+            "description": "Calc the days remaining until need delever the task.",
             "type": "ms.vss-work-web.work-item-form-control",
             "targets": [
                 "ms.vss-work-web.work-item-form"
