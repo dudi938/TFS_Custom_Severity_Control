@@ -2,12 +2,12 @@
     "manifestVersion": 1,
     "id": "Days calc",
     "version": "1.2.43",
-    "name": "Days calc",
+    "name": "Severity Control",
     "scopes": [
         "vso.work",
         "vso.work_write"
     ],
-    "description": "Calc the days remaining until need delever the task",
+    "description": "Calc the severity of bug by other field inputs",
     "publisher": "davidgershtenkoren",
     "icons": {
         "default": "img/logo.png"
