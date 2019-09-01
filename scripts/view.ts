@@ -16,7 +16,7 @@ export class View {
     private _init(): void {
         // remove the existing container from body before continuing
         $(".container").remove();
-
+        
         var container = $("<div />");
         container.addClass("container");
 
@@ -59,19 +59,21 @@ export class View {
 
 
         $( document ).ready(function() {
+            
             console.log( "ready!" );
+            setTimeout(function() {
+                //bind onchange event to the inputs fields
+                var TaskFrequencyInput = $(".workitemlabel").has("label:contains('Task Frequency')").next().find("input");
+                //alert(TaskFrequencyInput.val())
+                TaskFrequencyInput.change(this.onCalcEvent());
+                $(".workitemlabel").has("label:contains('Occurrence')").next().find("input").change(this.onCalcEvent);
+                $(".workitemlabel").has("label:contains('Implication')").next().find("input").change(this.onCalcEvent);
+           }, 2000);
+
+
+
+  
             //this.bindChangeEventToInputs();
-
-
-
-        //bind onchange event to the inputs fields
-        var TaskFrequencyInput = $(".workitemlabel").has("label:contains('Task Frequency')").next().find("input");
-        //alert(TaskFrequencyInput.val())
-        TaskFrequencyInput.change(this.onCalcEvent());
-        $(".workitemlabel").has("label:contains('Occurrence')").next().find("input").change(this.onCalcEvent);
-        $(".workitemlabel").has("label:contains('Implication')").next().find("input").change(this.onCalcEvent);
-
-
         });
         //this.onCalcEvent();
     }

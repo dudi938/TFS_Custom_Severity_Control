@@ -5,7 +5,7 @@ describe("Model", () => {
     let model: Model;
 
     beforeEach(() => {
-        model = new Model(0);
+        model = new Model('');
     });
 
     it("correctly initialize value to 0", () => {
@@ -23,13 +23,13 @@ describe("Model", () => {
     });
 
     it("decrements 1 to be 0", () => {
-        model.setCurrentValue(1);
+        model.setCurrentValue('');
         model.decrementValue();
         expect(model.getCurrentValue()).to.be.deep.equal(0);
     });
 
     it("decrements 20 twice to be 18", () => {
-        model.setCurrentValue(20);
+        model.setCurrentValue('');
         model.decrementValue();
         model.decrementValue();
         expect(model.getCurrentValue()).to.be.deep.equal(18);
