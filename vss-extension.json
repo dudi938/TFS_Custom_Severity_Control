@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "Days calc",
-    "version": "1.2.43",
+    "version": "1.2.13",
     "name": "Severity Control",
     "scopes": [
         "vso.work",
@@ -87,7 +87,8 @@
                         "properties": {
                             "workItemFieldTypes": [
                                 "Integer",
-                                "Double"
+                                "Double",
+                                "String"
                             ]
                         },
                         "validation": {

@@ -23,11 +23,10 @@ export class View {
         var wrap = $("<div />");
         wrap.addClass("wrap combo emptyBorder");
 
-        var hitcount = $("<input />").attr("type", "number");
-        wrap.append(hitcount);
-
-        hitcount.attr("aria-valuenow", this.currentValue);
-        hitcount.change(() => {
+        var SevirityTB = $("<input />").attr("type", "number");
+        wrap.append(SevirityTB);
+        SevirityTB.attr("aria-valuenow", this.currentValue);
+        SevirityTB.change(() => {
             this._inputChanged();
         }).on("keydown", (evt: JQueryKeyEventObject) => {
             if (evt.keyCode === 38) {
@@ -42,50 +41,39 @@ export class View {
                 }
             }
         });
-         var calc = $("<div />");
 
+
+         var calc = $("<div />");
          calc.css("border", "2px solid green");
          calc.css("border-radius", "5px");
          calc.css("padding", "3px")
-
-
          calc.html("Calc Severity");
-
-
-
          calc.click(() => {
              this.onCalcEvent();
          });
 
-
-
-
-
         container.append(wrap);
-        //container.append(downtick);
-        //container.append(uptick);
-
-
-
         container.append(calc);
-
-
-
-        // container.hover(() => {
-        //     wrap.addClass("border");
-        //     downtick.show();
-        //     uptick.show();
-        // }, () => {
-        //     if (!hitcount.is(":focus")) {
-        //         wrap.removeClass("border");
-        //         downtick.hide();
-        //         uptick.hide();
-        //     }
-        // });
 
         $("body").append(container);
 
-        this.onCalcEvent();
+
+        $( document ).ready(function() {
+            console.log( "ready!" );
+            //this.bindChangeEventToInputs();
+
+
+
+        //bind onchange event to the inputs fields
+        var TaskFrequencyInput = $(".workitemlabel").has("label:contains('Task Frequency')").next().find("input");
+        //alert(TaskFrequencyInput.val())
+        TaskFrequencyInput.change(this.onCalcEvent());
+        $(".workitemlabel").has("label:contains('Occurrence')").next().find("input").change(this.onCalcEvent);
+        $(".workitemlabel").has("label:contains('Implication')").next().find("input").change(this.onCalcEvent);
+
+
+        });
+        //this.onCalcEvent();
     }
 
     private _inputChanged(): void {
@@ -95,9 +83,20 @@ export class View {
         }
     }
 
-    public update(value: number) {
+    public update(value: string) {
         this.currentValue = String(value);
         $("input").val(this.currentValue);
+    }
+
+
+    public bindChangeEventToInputs(){
+        
+        // //bind onchange event to the inputs fields
+        // var TaskFrequencyInput = $(".workitemlabel").has("label:contains('Task Frequency')").next().find("input");
+        // TaskFrequencyInput.change(this.onCalcEvent());
+        // $(".workitemlabel").has("label:contains('Occurrence')").next().find("input").change(this.onCalcEvent);
+        // $(".workitemlabel").has("label:contains('Implication')").next().find("input").change(this.onCalcEvent);
+
     }
 }
 

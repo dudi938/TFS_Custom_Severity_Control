@@ -27,9 +27,9 @@ export class Controller {
             (service) => {
                 Q.spread(
                     [service.getFieldValue(this._fieldName)],
-                    (currentValue: number) => {
+                    (currentValue: string) => {
                         // dependent on view, model, and inputParser refactoring
-                        this._model = new Model(Number(currentValue));
+                        this._model = new Model(currentValue);
                         this._view = new View(this._model, (val) => {
                             this._updateInternal(val);
                         }, () => {
@@ -40,11 +40,17 @@ export class Controller {
                             this._updateInternal(this._model.getCurrentValue());
                         }, () => {
 
-                            service.getFieldValue('Planed Finish Date').then((PlanedFinishDate) =>{
-                                this._model.calcValueFromInputs(String(PlanedFinishDate));
-                                this._updateInternal(this._model.getCurrentValue());
-                                console.log('**Debug** PlanedFinishDate = ' + PlanedFinishDate)
-                                console.log('**Debug** CurrentValue = ' + this._model.getCurrentValue())
+                            alert("Hello world");
+                            service.getFieldValue('Repeatable').then((Repeatable) =>{
+                                service.getFieldValue('Implication').then((Implication) =>{
+                                    service.getFieldValue('Task Frequency').then((TaskFrequency) =>{
+                                        service.getFieldValue('Calc severity').then((CalcSeverity) =>{                            
+                                            this._model.calcValueFromInputs(String(Repeatable), String(Implication), String(TaskFrequency), String(CalcSeverity));
+                                            this._updateInternal(this._model.getCurrentValue());
+                                            console.log('**Debug** CurrentValue = ' + this._model.getCurrentValue())   
+                                        });
+                                     });  
+                                });
                             })
                         });
                     }, this._handleError
@@ -57,7 +63,7 @@ export class Controller {
         new ErrorView(error);
     }
 
-    private _updateInternal(value: number): void {
+    private _updateInternal(value: string): void {
         WitService.WorkItemFormService.getService().then(
             (service) => {
                 service.setFieldValue(this._fieldName, value).then(
@@ -69,12 +75,12 @@ export class Controller {
         );
     }
 
-    private _update(value: number): void {
+    private _update(value: string): void {
         this._model.setCurrentValue(value);
         this._view.update(value);
     }
 
-    public updateExternal(value: number): void {
+    public updateExternal(value: string): void {
         this._update(value);
     }
 
