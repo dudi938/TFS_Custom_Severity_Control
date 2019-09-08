@@ -49,6 +49,7 @@ export class View {
          calc.css("padding", "3px")
          calc.html("Calc Severity");
          calc.click(() => {
+             var TaskFrequencyInput2 = $(".workitemlabel");
              this.onCalcEvent();
          });
 
@@ -64,6 +65,7 @@ export class View {
             setTimeout(function() {
                 //bind onchange event to the inputs fields
                 var TaskFrequencyInput = $(".workitemlabel").has("label:contains('Task Frequency')").next().find("input");
+                console.log('TaskFrequencyInput = ' + String(TaskFrequencyInput)  );
                 //alert(TaskFrequencyInput.val())
                 TaskFrequencyInput.change(this.onCalcEvent());
                 $(".workitemlabel").has("label:contains('Occurrence')").next().find("input").change(this.onCalcEvent);
