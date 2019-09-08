@@ -5,69 +5,104 @@ export class Model {
      * selected in the Hit Count custom control. This will be updated in View and
      * changes as the user increments and decrements the value.
      */
+    private _sevCurrentValue: string;
+    private _repCurrentValue: string;
+    private _impCurrentValue: string;
+    private _taskFreqCurrentValue: string;
 
-    constructor(initialValue: string) {
-        this._currentValue = initialValue;
+
+
+    constructor(sevCurrentValue, impCurrentValue, taskFreqCurrentValue, repCurrentValue) {
+        this._sevCurrentValue = sevCurrentValue;
+        this._repCurrentValue = repCurrentValue;
+        this._taskFreqCurrentValue = taskFreqCurrentValue;
+        this._impCurrentValue = impCurrentValue;
     }
 
-    private _currentValue: string;
 
-    public setCurrentValue(value: string) {
+
+
+
+
+    public setCurrentValue(value: string, fieldName: string) {
         if (value === undefined) {
             throw "Undefined value";
         }
-        this._currentValue = value;
+
+        if(fieldName == 'severityField'){
+            this._sevCurrentValue = String(value);
+        }
+        if(fieldName == 'implicationField'){
+            this._impCurrentValue = String(value);
+        }
+        if(fieldName == 'taskFrequencyField'){
+            this._taskFreqCurrentValue = String(value);
+        }
+        if(fieldName == 'reaptableField'){
+            this._repCurrentValue = String(value);
+        }
     }
 
     public decrementValue() {
-        //if (this._currentValue > 0) {
-        //    this.setCurrentValue(this._currentValue - 2);
+        //if (this._sevCurrentValue > 0) {
+        //    this.setCurrentValue(this._sevCurrentValue - 2);
         // }
     }
 
     public incrementValue() {
-        this.setCurrentValue(this._currentValue + 2);
+        //this.setCurrentValue(this._sevCurrentValue + 2);
     }
 
-    public getCurrentValue(): string {
-        return this._currentValue;
+    public getCurrentValue(fieldName: string): string {
+        if(fieldName == 'severityField'){
+            return this._sevCurrentValue;
+        }
+        if(fieldName == 'implicationField'){
+            return this._impCurrentValue;
+        }
+        if(fieldName == 'taskFrequencyField'){
+            return this._taskFreqCurrentValue;
+        }
+        if(fieldName == 'reaptableField'){
+            return this._repCurrentValue;
+        }
+        
     }
 //this._model.calcValueFromInputs(String(Repeatable, Implication, TaskFrequency));
-    public calcValueFromInputs(Repeatable: string ,Implication: string ,TaskFrequency: string , CalcSeverity) {
-        console.log('**Debug** Repeatable = ' + Repeatable)
-        console.log('**Debug** Implication = ' + Implication)
-        console.log('**Debug** TaskFrequency = ' + TaskFrequency)
-        console.log('**Debug** CalcSeverity = ' + CalcSeverity)
+    public calcValueFromInputs(currentValues) {
 
-        if(Repeatable != null && Implication != null && TaskFrequency != null && CalcSeverity == true){
+
+        console.log('**Debug** reapetable = ' + currentValues.reapetable)
+        console.log('**Debug** implication = ' + currentValues.implication)
+        console.log('**Debug** taskFrequency = ' + currentValues.taskFrequency)
+
+
+        if(currentValues.reapetable != null && currentValues.implication != null && currentValues.taskFrequency != null){
             //TODO need set Calc Severity flag to false
 
-            var RepeatablePrefix = Repeatable.substr(0,1)
-            var TaskFrequencyPrefix = TaskFrequency.substr(0,1)
-            var ImplicationPrefix = Implication.substr(0,1)
+            var RepeatablePrefix = currentValues.reapetable.substr(0,1)
+            var TaskFrequencyPrefix = currentValues.taskFrequency.substr(0,1)
+            var ImplicationPrefix = currentValues.implication.substr(0,1)
             
             var severity = Number(RepeatablePrefix) * Number(TaskFrequencyPrefix) * Number(ImplicationPrefix);
 
                                                 
             if (severity <= 20 )
             {
-                this._currentValue = "Minor";                                     
+                this._sevCurrentValue = "Minor";                                     
             }
             else if (severity > 20 && severity <= 40 )
             {
-                this._currentValue = "Medium";
+                this._sevCurrentValue = "Medium";
             }
             else if (severity > 40 && severity <= 60 )
             {
-                this._currentValue = "Major";
+                this._sevCurrentValue = "Major";
             }
             else if (severity > 60)
             {
-                this._currentValue = "Critical";
-            }
-            
-
-            
+                this._sevCurrentValue = "Critical";
+            }       
         }
     }
 }

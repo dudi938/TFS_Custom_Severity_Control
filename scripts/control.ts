@@ -10,7 +10,14 @@ import { ErrorView } from "./errorView";
 import * as Q from "q";
 
 export class Controller {
-    private _fieldName: string = "";
+    private _severityFieldName: string = "";
+    private _implicationFieldName: string = "";
+    private _taskFrequencyFieldName: string = "";
+    private _reaptableFieldName: string = "";
+
+
+
+
     private _inputs: IDictionaryStringTo<string>;
     private _model: Model;
     private _view: View;
@@ -21,38 +28,55 @@ export class Controller {
 
     private _initialize(): void {
         this._inputs = VSS.getConfiguration().witInputs;
-        this._fieldName = this._inputs["FieldName"];
+        this._severityFieldName = this._inputs["SeveriryField"];
+        this._reaptableFieldName = this._inputs["Repeatable"];
+        this._taskFrequencyFieldName = this._inputs["TaskFrequencyField"];
+        this._implicationFieldName = this._inputs["ImplicationField"];
+
+
 
         WitService.WorkItemFormService.getService().then(
             (service) => {
                 Q.spread(
-                    [service.getFieldValue(this._fieldName)],
-                    (currentValue: string) => {
-                        // dependent on view, model, and inputParser refactoring
-                        this._model = new Model(currentValue);
-                        this._view = new View(this._model, (val) => {
-                            this._updateInternal(val);
-                        }, () => {
-                            this._model.incrementValue();
-                            this._updateInternal(this._model.getCurrentValue());
-                        }, () => {
-                            this._model.decrementValue();
-                            this._updateInternal(this._model.getCurrentValue());
-                        }, () => {
+                    [service.getFieldValue(this._severityFieldName), 
+                     service.getFieldValue(this._implicationFieldName),
+                     service.getFieldValue(this._reaptableFieldName),
+                     service.getFieldValue(this._taskFrequencyFieldName)],
+                    (sevCurrentValue: string, impCurrentValue: string, taskFreqCurrentValue: string, repCurrentValue: string) => {
 
-                            alert("Hello world");
+
+                        
+                        this._updateInternal(sevCurrentValue, 'severityField');
+                        this._updateInternal(impCurrentValue, 'implicationField');
+                        this._updateInternal(repCurrentValue, 'reaptableField');
+                        this._updateInternal(taskFreqCurrentValue, 'taskFrequencyField');
+
+
+                        // dependent on view, model, and inputParser refactoring
+                        this._model = new Model(sevCurrentValue, impCurrentValue, taskFreqCurrentValue, repCurrentValue);
+                        this._view = new View(this._model, (val, fieldName) => {
+                            this._updateInternal(val, fieldName);
+
                             service.getFieldValue('Repeatable').then((Repeatable) =>{
                                 service.getFieldValue('Implication').then((Implication) =>{
                                     service.getFieldValue('Task Frequency').then((TaskFrequency) =>{
                                         service.getFieldValue('Calc severity').then((CalcSeverity) =>{                            
-                                            this._model.calcValueFromInputs(String(Repeatable), String(Implication), String(TaskFrequency), String(CalcSeverity));
-                                            this._updateInternal(this._model.getCurrentValue());
-                                            console.log('**Debug** CurrentValue = ' + this._model.getCurrentValue())   
+                                            //this._model.calcValueFromInputs(String(Repeatable), String(Implication), String(TaskFrequency), String(CalcSeverity));
+                                            this._model.calcValueFromInputs(this._view.getCurrentValues());
+                                            this._updateInternal(this._model.getCurrentValue('severityField'), 'severityField');
+                                            console.log('**Debug** CurrentValue = ' + this._model.getCurrentValue('severityField'))   
                                         });
                                      });  
                                 });
                             })
-                        });
+
+                        }, (fieldName) => {
+                            this._model.incrementValue();
+                            this._updateInternal(this._model.getCurrentValue(fieldName), fieldName);
+                        }, (fieldName) => {
+                            this._model.decrementValue();
+                            this._updateInternal(this._model.getCurrentValue(fieldName), fieldName);
+                        })
                     }, this._handleError
                 ).then(null, this._handleError);
             },
@@ -63,29 +87,56 @@ export class Controller {
         new ErrorView(error);
     }
 
-    private _updateInternal(value: string): void {
+    private _updateInternal(value: string, fieldName: string): void {
         WitService.WorkItemFormService.getService().then(
             (service) => {
-                service.setFieldValue(this._fieldName, value).then(
+
+
+                if(fieldName == 'severityField'){
+                service.setFieldValue(this._severityFieldName, value).then(
                     () => {
-                        this._update(value);
+                        this._update(value, fieldName);
                     }, this._handleError);
+                }
+
+
+                else  if(fieldName == 'implicationField'){
+                    service.setFieldValue(this._implicationFieldName, value).then(
+                        () => {
+                            this._update(value, fieldName);
+                        }, this._handleError);
+                    }
+
+                else  if(fieldName == 'taskFrequencyField'){
+                    service.setFieldValue(this._taskFrequencyFieldName, value).then(
+                        () => {
+                            this._update(value, fieldName);
+                        }, this._handleError);
+                    }
+
+                else  if(fieldName == 'reaptableField'){
+                    service.setFieldValue(this._reaptableFieldName, value).then(
+                        () => {
+                            this._update(value, fieldName);
+                        }, this._handleError);
+                    }
+
             },
             this._handleError
         );
     }
 
-    private _update(value: string): void {
-        this._model.setCurrentValue(value);
-        this._view.update(value);
+    private _update(value: string, fieldName: string): void {
+        this._model.setCurrentValue(value, fieldName);
+        this._view.update(value, fieldName);
     }
 
-    public updateExternal(value: string): void {
-        this._update(value);
+    public updateExternal(value: string, fieldName: string): void {
+        this._update(value, fieldName);
     }
 
     public getFieldName(): string {
-        return this._fieldName;
+        return this._severityFieldName;
     }
 }
 

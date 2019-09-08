@@ -7,27 +7,35 @@ import { Model } from "./model";
 
 export class View {
 
-    private currentValue: string = "";
+    private sevCurrentValue: string = "";
+    private impCurrentValue: string = "";
+    private taskFreqCurrentValue: string = "";
+    private repCurrentValue: string = "";
 
-    constructor(private model: Model, private onInputChanged: Function, private onUpTick: Function, private onDownTick: Function, private onCalcEvent: Function) {
+
+
+    constructor(private model: Model, private onInputChanged: Function, private onUpTick: Function, private onDownTick: Function) {
         this._init();
     }
 
+
+
     private _init(): void {
-        // remove the existing container from body before continuing
+
+        // severity field
         $(".container").remove();
-        
         var container = $("<div />");
         container.addClass("container");
-
-        var wrap = $("<div />");
-        wrap.addClass("wrap combo emptyBorder");
-
-        var SevirityTB = $("<input />").attr("type", "number");
-        wrap.append(SevirityTB);
-        SevirityTB.attr("aria-valuenow", this.currentValue);
-        SevirityTB.change(() => {
-            this._inputChanged();
+        var sevWrap = $("<div />");
+        sevWrap.addClass("wrap combo emptyBorder");
+        var sevLB = $("<Label />").addClass("workitemcontrol-label").val('Severity');
+        var sevTB = $("<input />").attr("type", "text");
+        sevWrap.append(sevLB);
+        sevWrap.append(sevTB);
+        sevTB.attr("aria-valuenow", this.sevCurrentValue);
+        sevTB.addClass("sevClass");
+        sevTB.change(() => {
+            this._inputChanged('severityField', 'sevClass');
         }).on("keydown", (evt: JQueryKeyEventObject) => {
             if (evt.keyCode === 38) {
                 if (this.onUpTick) {
@@ -41,66 +49,130 @@ export class View {
                 }
             }
         });
+        container.append(sevWrap);
+
+        
+
+        var impWrap = $("<div />");
+        impWrap.addClass("wrap combo emptyBorder");
+        var impLB = $("<Label />").addClass("workitemcontrol-label").val('Implication');
+        var impTB = $("<input />").attr("type", "text");
+        impWrap.append(impLB);
+        impWrap.append(impTB);
+        impTB.attr("aria-valuenow", this.impCurrentValue);
+        impTB.addClass("impClass");
+        impTB.change(() => {
+            this._inputChanged('implicationField', 'impClass');
+        }).on("keydown", (evt: JQueryKeyEventObject) => {
+            if (evt.keyCode === 38) {
+                if (this.onUpTick) {
+                    this.onUpTick();
+                    evt.preventDefault();
+                }
+            } else if (evt.keyCode === 40) {
+                if (this.onDownTick) {
+                    this.onDownTick();
+                    evt.preventDefault();
+                }
+            }
+        });
+        container.append(impWrap);
 
 
-         var calc = $("<div />");
-         calc.css("border", "2px solid green");
-         calc.css("border-radius", "5px");
-         calc.css("padding", "3px")
-         calc.html("Calc Severity");
-         calc.click(() => {
-             var TaskFrequencyInput2 = $(".workitemlabel");
-             this.onCalcEvent();
-         });
 
-        container.append(wrap);
-        container.append(calc);
+
+        var taskFreqWrap = $("<div />");
+        taskFreqWrap.addClass("wrap combo emptyBorder");
+        var taskFreqLB = $("<Label />").addClass("workitemcontrol-label").val('Task Frequency');
+        var taskFreqTB = $("<input />").attr("type", "text");
+        taskFreqWrap.append(taskFreqLB);
+        taskFreqWrap.append(taskFreqTB);
+        taskFreqTB.attr("aria-valuenow", this.taskFreqCurrentValue);
+        taskFreqTB.addClass("taskFreqClass");
+        taskFreqTB.change(() => {
+            this._inputChanged('taskFrequencyField', 'taskFreqClass');
+        }).on("keydown", (evt: JQueryKeyEventObject) => {
+            if (evt.keyCode === 38) {
+                if (this.onUpTick) {
+                    this.onUpTick();
+                    evt.preventDefault();
+                }
+            } else if (evt.keyCode === 40) {
+                if (this.onDownTick) {
+                    this.onDownTick();
+                    evt.preventDefault();
+                }
+            }
+        });
+        container.append(taskFreqWrap);
+
+
+
+
+        var repWrap = $("<div />");
+        repWrap.addClass("wrap combo emptyBorder");
+        var repLB = $("<Label />").addClass("workitemcontrol-label");
+        var repTB = $("<input />").attr("type", "text");
+        repWrap.append(repLB);
+        repWrap.append(repTB);
+        repTB.attr("aria-valuenow", this.repCurrentValue);
+        repTB.addClass("repClass");
+        repTB.change(() => {
+            this._inputChanged('reaptableField', 'repClass');
+        }).on("keydown", (evt: JQueryKeyEventObject) => {
+            if (evt.keyCode === 38) {
+                if (this.onUpTick) {
+                    this.onUpTick();
+                    evt.preventDefault();
+                }
+            } else if (evt.keyCode === 40) {
+                if (this.onDownTick) {
+                    this.onDownTick();
+                    evt.preventDefault();
+                }
+            }
+        });
+        container.append(repWrap);
+
 
         $("body").append(container);
 
 
-        $( document ).ready(function() {
-            
-            console.log( "ready!" );
-            setTimeout(function() {
-                //bind onchange event to the inputs fields
-                var TaskFrequencyInput = $(".workitemlabel").has("label:contains('Task Frequency')").next().find("input");
-                console.log('TaskFrequencyInput = ' + String(TaskFrequencyInput)  );
-                //alert(TaskFrequencyInput.val())
-                TaskFrequencyInput.change(this.onCalcEvent());
-                $(".workitemlabel").has("label:contains('Occurrence')").next().find("input").change(this.onCalcEvent);
-                $(".workitemlabel").has("label:contains('Implication')").next().find("input").change(this.onCalcEvent);
-           }, 2000);
-
-
-
-  
-            //this.bindChangeEventToInputs();
-        });
-        //this.onCalcEvent();
     }
 
-    private _inputChanged(): void {
-        let newValue = Number($("input").val());
+    private _inputChanged(fieldName: string, JQselector: string): void {
+        let newValue = $("." + JQselector).val();
         if (this.onInputChanged) {
-            this.onInputChanged(newValue);
+            this.onInputChanged(newValue, fieldName);
         }
     }
 
-    public update(value: string) {
-        this.currentValue = String(value);
-        $("input").val(this.currentValue);
+    public update(value: string, fieldName: string) {
+        if(fieldName == 'severityField'){
+            this.sevCurrentValue = String(value);
+            $(".sevClass").val(this.sevCurrentValue);
+        }
+        if(fieldName == 'implicationField'){
+            this.impCurrentValue = String(value);
+            $(".impClass").val(this.impCurrentValue);
+        }
+        if(fieldName == 'taskFrequencyField'){
+            this.taskFreqCurrentValue = String(value);
+            $(".taskFreqClass").val(this.taskFreqCurrentValue);
+        }
+        if(fieldName == 'reaptableField'){
+            this.repCurrentValue = String(value);
+            $(".repClass").val(this.repCurrentValue);
+        }
     }
 
-
-    public bindChangeEventToInputs(){
-        
-        // //bind onchange event to the inputs fields
-        // var TaskFrequencyInput = $(".workitemlabel").has("label:contains('Task Frequency')").next().find("input");
-        // TaskFrequencyInput.change(this.onCalcEvent());
-        // $(".workitemlabel").has("label:contains('Occurrence')").next().find("input").change(this.onCalcEvent);
-        // $(".workitemlabel").has("label:contains('Implication')").next().find("input").change(this.onCalcEvent);
-
+    public getCurrentValues() :any{
+        var currentValues = {
+            severity: $(".sevClass").val(),
+            implication: $(".impClass").val(),
+            taskFrequency: $(".taskFreqClass").val(),
+            reapetable: $(".repClass").val()       
+        }
+        return currentValues;
     }
 }
-

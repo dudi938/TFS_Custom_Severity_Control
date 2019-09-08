@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "Days calc",
-    "version": "1.2.23",
+    "version": "1.2.44",
     "name": "Severity Control",
     "scopes": [
         "vso.work",
@@ -80,8 +80,59 @@
                 "height": 28,
                 "inputs": [
                     {
-                        "id": "FieldName",
-                        "name": "Select the field for this control. Example: Story Points",
+                        "id": "SeveriryField",
+                        "name": "Severity",
+                        "description": "The field associated with the control.",
+                        "type": "WorkItemField",
+                        "properties": {
+                            "workItemFieldTypes": [
+                                "Integer",
+                                "Double",
+                                "String"
+                            ]
+                        },
+                        "validation": {
+                            "dataType": "String",
+                            "isRequired": true
+                        }
+                    },
+                    {
+                        "id": "ImplicationField",
+                        "name": "Implication",
+                        "description": "The field associated with the control.",
+                        "type": "WorkItemField",
+                        "properties": {
+                            "workItemFieldTypes": [
+                                "Integer",
+                                "Double",
+                                "String"
+                            ]
+                        },
+                        "validation": {
+                            "dataType": "String",
+                            "isRequired": true
+                        }
+                    },
+                    {
+                        "id": "TaskFrequencyField",
+                        "name": "Task Frequency",
+                        "description": "The field associated with the control.",
+                        "type": "WorkItemField",
+                        "properties": {
+                            "workItemFieldTypes": [
+                                "Integer",
+                                "Double",
+                                "String"
+                            ]
+                        },
+                        "validation": {
+                            "dataType": "String",
+                            "isRequired": true
+                        }
+                    },
+                    {
+                        "id": "Repeatable",
+                        "name": "Repeatable",
                         "description": "The field associated with the control.",
                         "type": "WorkItemField",
                         "properties": {
