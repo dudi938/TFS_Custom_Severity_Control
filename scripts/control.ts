@@ -40,16 +40,18 @@ export class Controller {
                 Q.spread(
                     [service.getFieldValue(this._severityFieldName), 
                      service.getFieldValue(this._implicationFieldName),
-                     service.getFieldValue(this._reaptableFieldName),
-                     service.getFieldValue(this._taskFrequencyFieldName)],
+                     service.getFieldValue(this._taskFrequencyFieldName),
+                     service.getFieldValue(this._reaptableFieldName)],
                     (sevCurrentValue: string, impCurrentValue: string, taskFreqCurrentValue: string, repCurrentValue: string) => {
 
 
                         
-                        this._updateInternal(sevCurrentValue, 'severityField');
-                        this._updateInternal(impCurrentValue, 'implicationField');
-                        this._updateInternal(repCurrentValue, 'reaptableField');
-                        this._updateInternal(taskFreqCurrentValue, 'taskFrequencyField');
+                        this._updateInternal(sevCurrentValue, 'severityField')
+                        this._updateInternal(impCurrentValue, 'implicationField')
+                        this._updateInternal(repCurrentValue, 'reaptableField')
+                        this._updateInternal(taskFreqCurrentValue, 'taskFrequencyField')
+                        
+                        
 
 
                         // dependent on view, model, and inputParser refactoring
@@ -87,7 +89,8 @@ export class Controller {
         new ErrorView(error);
     }
 
-    private _updateInternal(value: string, fieldName: string): void {
+     private _updateInternal(value: string, fieldName: string): any {
+
         WitService.WorkItemFormService.getService().then(
             (service) => {
 

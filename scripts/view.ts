@@ -22,15 +22,23 @@ export class View {
 
     private _init(): void {
 
+        var newLine = $("<br>");
+
+
+
+
         // severity field
         $(".container").remove();
         var container = $("<div />");
         container.addClass("container");
         var sevWrap = $("<div />");
         sevWrap.addClass("wrap combo emptyBorder");
-        var sevLB = $("<Label />").addClass("workitemcontrol-label").val('Severity');
+        var sevLB = $("<Label />")
+        sevLB.addClass("workitemcontrol-label")
+        sevLB.text('Severity');
+        sevLB.attr("for", 'sevField');
         var sevTB = $("<input />").attr("type", "text");
-        sevWrap.append(sevLB);
+        sevTB.attr("id", "sevField")
         sevWrap.append(sevTB);
         sevTB.attr("aria-valuenow", this.sevCurrentValue);
         sevTB.addClass("sevClass");
@@ -49,15 +57,20 @@ export class View {
                 }
             }
         });
+        container.append(sevLB);
         container.append(sevWrap);
+        container.append(newLine)
 
         
 
         var impWrap = $("<div />");
         impWrap.addClass("wrap combo emptyBorder");
-        var impLB = $("<Label />").addClass("workitemcontrol-label").val('Implication');
+        var impLB = $("<Label />")
+        impLB.addClass("workitemcontrol-label")
+        impLB.text('Implication');
+        impLB.attr('for', 'impField');
         var impTB = $("<input />").attr("type", "text");
-        impWrap.append(impLB);
+        impTB.attr("id", "impField")
         impWrap.append(impTB);
         impTB.attr("aria-valuenow", this.impCurrentValue);
         impTB.addClass("impClass");
@@ -76,16 +89,20 @@ export class View {
                 }
             }
         });
+        container.append(impLB);
         container.append(impWrap);
-
+        container.append(newLine)
 
 
 
         var taskFreqWrap = $("<div />");
         taskFreqWrap.addClass("wrap combo emptyBorder");
-        var taskFreqLB = $("<Label />").addClass("workitemcontrol-label").val('Task Frequency');
+        var taskFreqLB = $("<Label />")
+        taskFreqLB.addClass("workitemcontrol-label")
+        taskFreqLB.text('Task Frequency');
+        taskFreqLB.attr('for', 'taskFreq');
         var taskFreqTB = $("<input />").attr("type", "text");
-        taskFreqWrap.append(taskFreqLB);
+        taskFreqTB.attr("id", "taskFreq")
         taskFreqWrap.append(taskFreqTB);
         taskFreqTB.attr("aria-valuenow", this.taskFreqCurrentValue);
         taskFreqTB.addClass("taskFreqClass");
@@ -104,16 +121,20 @@ export class View {
                 }
             }
         });
+        container.append(taskFreqLB);
         container.append(taskFreqWrap);
-
+        container.append(newLine)
 
 
 
         var repWrap = $("<div />");
         repWrap.addClass("wrap combo emptyBorder");
-        var repLB = $("<Label />").addClass("workitemcontrol-label");
+        var repLB = $("<Label />")
+        repLB.addClass("workitemcontrol-label");
+        repLB.text("Reaptable")
+        repLB.attr("for", "reaptField")
         var repTB = $("<input />").attr("type", "text");
-        repWrap.append(repLB);
+        repTB.attr("id", "reaptField")
         repWrap.append(repTB);
         repTB.attr("aria-valuenow", this.repCurrentValue);
         repTB.addClass("repClass");
@@ -132,6 +153,7 @@ export class View {
                 }
             }
         });
+        container.append(repLB);
         container.append(repWrap);
 
 
