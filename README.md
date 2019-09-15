@@ -10,19 +10,22 @@
 2. Open the Command Prompt and change to the directory where you cloned the project.  For instance, if it is cloned in a folder called "extensions" and saved as "vsts-extension-integer-control", you will navigate to the following command line.
 
         > cd C:\extensions\vsts-extension-integer-control
-        
+     
 1. Run `npm install` to install required local dependencies.
 2. Run `npm install -g grunt` to install a global copy of grunt (unless it's already installed).
-2. Run `grunt package-dev`.
-3. In your browser, navigate to your local instance of TFS, `http://YourTFSInstance:8080/tfs`.
-4. Go to your personal Marketplace.
-6. Click the Marketplace icon in the upper righthand corner.
-7. Click "Browse local extensions" in the dropdown.
-7. Scroll down and click on the "Manage Extensions" widget.
-8. Click the button "Upload new extension".
-9. Browse to the *.vsix* file generated when you packaged your extension.
-10. Select the extension, and then click "Open".  Click "Upload" when the button activates.
-11. Hover over the extension when it appears in the list, and click "Install".
+3. configure the category by :
+    for tfs 2017 "Plan and track"
+    from tfs 2019 "Azure Boards"
+4. Run `grunt package-dev`.
+5. In your browser, navigate to your local instance of TFS, `http://YourTFSInstance:8080/tfs`.
+6. Go to your personal Marketplace.
+7. Click the Marketplace icon in the upper righthand corner.
+8. Click "Browse local extensions" in the dropdown.
+9. Scroll down and click on the "Manage Extensions" widget.
+10. Click the button "Upload new extension".
+11. Browse to the *.vsix* file generated when you packaged your extension.
+12. Select the extension, and then click "Open".  Click "Upload" when the button activates.
+13. Hover over the extension when it appears in the list, and click "Install".
 
 You have now installed the extension inside your collection.  You are now able to put the control on the work item form.
 
