@@ -5,21 +5,15 @@ export class Model {
      * selected in the Hit Count custom control. This will be updated in View and
      * changes as the user increments and decrements the value.
      */
-    private _sevCurrentValue: string;
-    private _repCurrentValue: string;
-    private _impCurrentValue: string;
-    private _taskFreqCurrentValue: string;
+    private _outputCurrentValue: string;
+    private _inputCurrentValue: string;
 
 
 
-    constructor(sevCurrentValue, impCurrentValue, taskFreqCurrentValue, repCurrentValue) {
-        this._sevCurrentValue = sevCurrentValue;
-        this._repCurrentValue = repCurrentValue;
-        this._taskFreqCurrentValue = taskFreqCurrentValue;
-        this._impCurrentValue = impCurrentValue;
+    constructor(inputFieldValue, outputFieldValue) {
+        this._outputCurrentValue = outputFieldValue;
+        this._inputCurrentValue = inputFieldValue;
     }
-
-
 
 
 
@@ -29,42 +23,21 @@ export class Model {
             throw "Undefined value";
         }
 
-        if(fieldName == 'severityField'){
-            this._sevCurrentValue = String(value);
+        if(fieldName == 'outputField'){
+            this._outputCurrentValue = String(value);
         }
-        if(fieldName == 'implicationField'){
-            this._impCurrentValue = String(value);
-        }
-        if(fieldName == 'taskFrequencyField'){
-            this._taskFreqCurrentValue = String(value);
-        }
-        if(fieldName == 'reaptableField'){
-            this._repCurrentValue = String(value);
+        if(fieldName == 'inputField'){
+            this._inputCurrentValue = String(value);
         }
     }
-
-    public decrementValue() {
-        //if (this._sevCurrentValue > 0) {
-        //    this.setCurrentValue(this._sevCurrentValue - 2);
-        // }
-    }
-
-    public incrementValue() {
-        //this.setCurrentValue(this._sevCurrentValue + 2);
-    }
+    
 
     public getCurrentValue(fieldName: string): string {
-        if(fieldName == 'severityField'){
-            return this._sevCurrentValue;
+        if(fieldName == 'outputField'){
+            return this._outputCurrentValue;
         }
-        if(fieldName == 'implicationField'){
-            return this._impCurrentValue;
-        }
-        if(fieldName == 'taskFrequencyField'){
-            return this._taskFreqCurrentValue;
-        }
-        if(fieldName == 'reaptableField'){
-            return this._repCurrentValue;
+        if(fieldName == 'inputField'){
+            return this._inputCurrentValue;
         }
         
     }
@@ -72,37 +45,15 @@ export class Model {
     public calcValueFromInputs(currentValues) {
 
 
-        console.log('**Debug** reapetable = ' + currentValues.reapetable)
-        console.log('**Debug** implication = ' + currentValues.implication)
-        console.log('**Debug** taskFrequency = ' + currentValues.taskFrequency)
+        console.log('**Debug** inputFieldValue = ' + currentValues.inputFieldValue)
+        console.log('**Debug** outputFieldValue = ' + currentValues.outputFieldValue)
 
 
-        if(currentValues.reapetable != null && currentValues.implication != null && currentValues.taskFrequency != null){
-            //TODO need set Calc Severity flag to false
-
-            var RepeatablePrefix = currentValues.reapetable.substr(0,1)
-            var TaskFrequencyPrefix = currentValues.taskFrequency.substr(0,1)
-            var ImplicationPrefix = currentValues.implication.substr(0,1)
-            
-            var severity = Number(RepeatablePrefix) * Number(TaskFrequencyPrefix) * Number(ImplicationPrefix);
-
-                                                
-            if (severity <= 20 )
-            {
-                this._sevCurrentValue = "Minor";                                     
-            }
-            else if (severity > 20 && severity <= 40 )
-            {
-                this._sevCurrentValue = "Medium";
-            }
-            else if (severity > 40 && severity <= 60 )
-            {
-                this._sevCurrentValue = "Major";
-            }
-            else if (severity > 60)
-            {
-                this._sevCurrentValue = "Critical";
-            }       
+        if(currentValues.inputFieldValue != null && currentValues.outputFieldValue){
+            console.log('*****')
+            console.log(currentValues.inputFieldValue)
+            console.log('*****')
+            console.log(String(currentValues.inputFieldValue).split('$'))
         }
     }
 }

@@ -20,14 +20,14 @@ var provider = () => {
             control = new Controller();
         },
         onFieldChanged: (fieldChangedArgs: IWorkItemFieldChangedArgs) => {
-            var changedValue = fieldChangedArgs.changedFields[control.getFieldName()];
-            if (changedValue !== undefined) {
+            //var changedValue = fieldChangedArgs.changedFields[control.getFieldName()];
+            //if (changedValue !== undefined) {
 
                 // control.updateExternal(changedValue, "reaptableField");
                 // control.updateExternal(changedValue, "taskFrequencyField");
                 // control.updateExternal(changedValue, "implicationField");
                 // control.updateExternal(changedValue, "severityField");
-            }
+            //}
         }
     };
 };

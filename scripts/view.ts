@@ -7,127 +7,70 @@ import { Model } from "./model";
 
 export class View {
 
-    private sevCurrentValue: string = "";
-    private impCurrentValue: string = "";
+    private inputCurrentValue: string = "";
+    private outputCurrentValue: string = "";
     private taskFreqCurrentValue: string = "";
     private repCurrentValue: string = "";
 
-
-
-    constructor(private model: Model, private onInputChanged: Function, private onUpTick: Function, private onDownTick: Function) {
+    constructor(private onInputChanged: Function) {
         this._init();
     }
-
 
 
     private _init(): void {
 
         var newLine = $("<br>");
 
-
-
-
-        // severity field
+        // input field
         $(".container").remove();
         var container = $("<div />");
         container.addClass("container");
-        var sevWrap = $("<div />");
-        sevWrap.addClass("wrap combo emptyBorder");
-        var sevLB = $("<Label />")
-        sevLB.addClass("workitemcontrol-label")
-        sevLB.text('Severity');
-        sevLB.attr("for", 'sevField');
-        var sevTB = $("<input />").attr("type", "text");
-        sevTB.attr("id", "sevField")
-        sevWrap.append(sevTB);
-        sevTB.attr("aria-valuenow", this.sevCurrentValue);
-        sevTB.addClass("sevClass");
-        sevTB.change(() => {
-            //this._inputChanged('severityField', 'sevClass');
+        var inWrap = $("<div />");
+        inWrap.addClass("wrap combo emptyBorder");
+        var inLB = $("<Label />")
+        inLB.addClass("workitemcontrol-label")
+        inLB.text('Input');
+        inLB.attr("for", 'inputField');
+        var inTB = $("<input />").attr("type", "text");
+        inTB.attr("id", "inField")
+        inWrap.append(inTB);
+        inTB.attr("aria-valuenow", this.inputCurrentValue);
+        inTB.addClass("inputClass");
+        inTB.change(() => {
+
         }).on("input", (evt: JQueryKeyEventObject) => {
-            this._inputChanged('severityField', 'sevClass', evt);
-            //this._inputChanged('severityField', evt.key);
-            //evt.preventDefault();
+            this._inputChanged('inputField', 'inputClass', evt);
         });
-        container.append(sevLB);
-        container.append(sevWrap);
+        container.append(inLB);
+        container.append(inWrap);
         container.append(newLine)
 
         
 
+        //output field
         var impWrap = $("<div />");
         impWrap.addClass("wrap combo emptyBorder");
-        var impLB = $("<Label />")
-        impLB.addClass("workitemcontrol-label")
-        impLB.text('Implication');
-        impLB.attr('for', 'impField');
-        var impTB = $("<input />").attr("type", "text");
-        impTB.attr("id", "impField")
-        impWrap.append(impTB);
-        impTB.attr("aria-valuenow", this.impCurrentValue);
-        impTB.addClass("impClass");
-        impTB.change(() => {
-            //this._inputChanged('implicationField', 'impClass');
+        var outLB = $("<Label />")
+        outLB.addClass("workitemcontrol-label")
+        outLB.text('Output');
+        outLB.attr('for', 'outField');
+        var outTB = $("<input />").attr("type", "text");
+        outTB.attr("id", "outField")
+        impWrap.append(outTB);
+        outTB.attr("aria-valuenow", this.outputCurrentValue);
+        outTB.addClass("outputClass");
+        outTB.change(() => {
+  
         }).on("input", (evt: JQueryKeyEventObject) => {
-             this._inputChanged('implicationField', 'impClass', evt);
-            //this._inputChanged('implicationField', evt.key);
-           //evt.preventDefault();
+             this._inputChanged('outputField', 'outputClass', evt);
+
         });
-        container.append(impLB);
+        container.append(outLB);
         container.append(impWrap);
         container.append(newLine)
 
 
-
-        var taskFreqWrap = $("<div />");
-        taskFreqWrap.addClass("wrap combo emptyBorder");
-        var taskFreqLB = $("<Label />")
-        taskFreqLB.addClass("workitemcontrol-label")
-        taskFreqLB.text('Task Frequency');
-        taskFreqLB.attr('for', 'taskFreq');
-        var taskFreqTB = $("<input />").attr("type", "text");
-        taskFreqTB.attr("id", "taskFreq")
-        taskFreqWrap.append(taskFreqTB);
-        taskFreqTB.attr("aria-valuenow", this.taskFreqCurrentValue);
-        taskFreqTB.addClass("taskFreqClass");
-        taskFreqTB.change(() => {
-            //this._inputChanged('taskFrequencyField', 'taskFreqClass');
-        }).on("input", (evt: JQueryKeyEventObject) => {
-            this._inputChanged('taskFrequencyField', 'taskFreqClass', evt);
-            //this._inputChanged('taskFrequencyField', evt.key);
-            //evt.preventDefault();
-        });
-        container.append(taskFreqLB);
-        container.append(taskFreqWrap);
-        container.append(newLine)
-
-
-
-        var repWrap = $("<div />");
-        repWrap.addClass("wrap combo emptyBorder");
-        var repLB = $("<Label />")
-        repLB.addClass("workitemcontrol-label");
-        repLB.text("Reaptable")
-        repLB.attr("for", "reaptField")
-        var repTB = $("<input />").attr("type", "text");
-        repTB.attr("id", "reaptField")
-        repWrap.append(repTB);
-        repTB.attr("aria-valuenow", this.repCurrentValue);
-        repTB.addClass("repClass");
-        repTB.change(() => {
-            //this._inputChanged('reaptableField', 'repClass');
-        }).on("input", (evt: JQueryKeyEventObject) => {
-            this._inputChanged('reaptableField', 'repClass', evt);
-            //this._inputChanged('reaptableField', evt.key);
-            //evt.preventDefault();
-        });
-        container.append(repLB);
-        container.append(repWrap);
-
-
         $("body").append(container);
-
-
     }
 
     private _inputChanged(fieldName: string, JQselector: string, evt: JQueryKeyEventObject): void {
@@ -137,31 +80,22 @@ export class View {
         }
     }
 
+
     public update(value: string, fieldName: string) {
-        if(fieldName == 'severityField'){
-            this.sevCurrentValue = String(value);
-            $(".sevClass").val(this.sevCurrentValue);
+        if(fieldName == 'inputField'){
+            this.inputCurrentValue = String(value);
+            $(".inputClass").val(this.inputCurrentValue);
         }
-        if(fieldName == 'implicationField'){
-            this.impCurrentValue = String(value);
-            $(".impClass").val(this.impCurrentValue);
-        }
-        if(fieldName == 'taskFrequencyField'){
-            this.taskFreqCurrentValue = String(value);
-            $(".taskFreqClass").val(this.taskFreqCurrentValue);
-        }
-        if(fieldName == 'reaptableField'){
-            this.repCurrentValue = String(value);
-            $(".repClass").val(this.repCurrentValue);
+        if(fieldName == 'outputField'){
+            this.outputCurrentValue = String(value);
+            $(".outputClass").val(this.outputCurrentValue);
         }
     }
 
     public getCurrentValues() :any{
         var currentValues = {
-            severity: $(".sevClass").val(),
-            implication: $(".impClass").val(),
-            taskFrequency: $(".taskFreqClass").val(),
-            reapetable: $(".repClass").val()       
+            inputFieldValue: $(".inputClass").val(),
+            outputFieldValue: $(".outputClass").val()
         }
         return currentValues;
     }

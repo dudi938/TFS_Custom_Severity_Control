@@ -1,13 +1,13 @@
 {
     "manifestVersion": 1,
-    "id": "Days calc",
-    "version": "1.2.68",
-    "name": "Severity Control",
+    "id": "generic control",
+    "version": "1.2.2",
+    "name": "generic control",
     "scopes": [
         "vso.work",
         "vso.work_write"
     ],
-    "description": "Calc the severity of bug by other field inputs",
+    "description": "generic control",
     "publisher": "davidgershtenkoren",
     "icons": {
         "default": "img/logo.png"
@@ -69,7 +69,7 @@
     "contributions": [
         {
             "id": "Days-Calc",
-            "description": "Calc the days remaining until need delever the task.",
+            "description": "Generic Control - alow the user to write on the fly the logics of the output field",
             "type": "ms.vss-work-web.work-item-form-control",
             "targets": [
                 "ms.vss-work-web.work-item-form"
@@ -80,9 +80,9 @@
                 "height": 28,
                 "inputs": [
                     {
-                        "id": "SeveriryField",
-                        "name": "Severity",
-                        "description": "The field associated with the control.",
+                        "id": "OutputField",
+                        "name": "OutputField",
+                        "description": "Field to show the output",
                         "type": "WorkItemField",
                         "properties": {
                             "workItemFieldTypes": [
@@ -97,43 +97,9 @@
                         }
                     },
                     {
-                        "id": "ImplicationField",
-                        "name": "Implication",
-                        "description": "The field associated with the control.",
-                        "type": "WorkItemField",
-                        "properties": {
-                            "workItemFieldTypes": [
-                                "Integer",
-                                "Double",
-                                "String"
-                            ]
-                        },
-                        "validation": {
-                            "dataType": "String",
-                            "isRequired": true
-                        }
-                    },
-                    {
-                        "id": "TaskFrequencyField",
-                        "name": "Task Frequency",
-                        "description": "The field associated with the control.",
-                        "type": "WorkItemField",
-                        "properties": {
-                            "workItemFieldTypes": [
-                                "Integer",
-                                "Double",
-                                "String"
-                            ]
-                        },
-                        "validation": {
-                            "dataType": "String",
-                            "isRequired": true
-                        }
-                    },
-                    {
-                        "id": "Repeatable",
-                        "name": "Repeatable",
-                        "description": "The field associated with the control.",
+                        "id": "InputField",
+                        "name": "InputField",
+                        "description": "Field to insert the logics the output",
                         "type": "WorkItemField",
                         "properties": {
                             "workItemFieldTypes": [
