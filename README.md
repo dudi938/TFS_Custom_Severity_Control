@@ -13,7 +13,7 @@
      
 1. Run `npm install` to install required local dependencies.
 2. Run `npm install -g grunt` to install a global copy of grunt (unless it's already installed).
-3. configure the category by :
+3. configure the category value in the vss-extension.json file by :
     for tfs 2017 "Plan and track"
     from tfs 2019 "Azure Boards"
 4. Run `grunt package-dev`.
