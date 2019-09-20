@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "Days calc",
-    "version": "1.2.57",
+    "version": "1.2.68",
     "name": "Severity Control",
     "scopes": [
         "vso.work",

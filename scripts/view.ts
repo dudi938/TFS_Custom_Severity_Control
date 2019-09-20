@@ -43,19 +43,11 @@ export class View {
         sevTB.attr("aria-valuenow", this.sevCurrentValue);
         sevTB.addClass("sevClass");
         sevTB.change(() => {
-            this._inputChanged('severityField', 'sevClass');
-        }).on("keydown", (evt: JQueryKeyEventObject) => {
-            if (evt.keyCode === 38) {
-                if (this.onUpTick) {
-                    this.onUpTick();
-                    evt.preventDefault();
-                }
-            } else if (evt.keyCode === 40) {
-                if (this.onDownTick) {
-                    this.onDownTick();
-                    evt.preventDefault();
-                }
-            }
+            //this._inputChanged('severityField', 'sevClass');
+        }).on("input", (evt: JQueryKeyEventObject) => {
+            this._inputChanged('severityField', 'sevClass', evt);
+            //this._inputChanged('severityField', evt.key);
+            //evt.preventDefault();
         });
         container.append(sevLB);
         container.append(sevWrap);
@@ -75,19 +67,11 @@ export class View {
         impTB.attr("aria-valuenow", this.impCurrentValue);
         impTB.addClass("impClass");
         impTB.change(() => {
-            this._inputChanged('implicationField', 'impClass');
-        }).on("keydown", (evt: JQueryKeyEventObject) => {
-            if (evt.keyCode === 38) {
-                if (this.onUpTick) {
-                    this.onUpTick();
-                    evt.preventDefault();
-                }
-            } else if (evt.keyCode === 40) {
-                if (this.onDownTick) {
-                    this.onDownTick();
-                    evt.preventDefault();
-                }
-            }
+            //this._inputChanged('implicationField', 'impClass');
+        }).on("input", (evt: JQueryKeyEventObject) => {
+             this._inputChanged('implicationField', 'impClass', evt);
+            //this._inputChanged('implicationField', evt.key);
+           //evt.preventDefault();
         });
         container.append(impLB);
         container.append(impWrap);
@@ -107,19 +91,11 @@ export class View {
         taskFreqTB.attr("aria-valuenow", this.taskFreqCurrentValue);
         taskFreqTB.addClass("taskFreqClass");
         taskFreqTB.change(() => {
-            this._inputChanged('taskFrequencyField', 'taskFreqClass');
-        }).on("keydown", (evt: JQueryKeyEventObject) => {
-            if (evt.keyCode === 38) {
-                if (this.onUpTick) {
-                    this.onUpTick();
-                    evt.preventDefault();
-                }
-            } else if (evt.keyCode === 40) {
-                if (this.onDownTick) {
-                    this.onDownTick();
-                    evt.preventDefault();
-                }
-            }
+            //this._inputChanged('taskFrequencyField', 'taskFreqClass');
+        }).on("input", (evt: JQueryKeyEventObject) => {
+            this._inputChanged('taskFrequencyField', 'taskFreqClass', evt);
+            //this._inputChanged('taskFrequencyField', evt.key);
+            //evt.preventDefault();
         });
         container.append(taskFreqLB);
         container.append(taskFreqWrap);
@@ -139,19 +115,11 @@ export class View {
         repTB.attr("aria-valuenow", this.repCurrentValue);
         repTB.addClass("repClass");
         repTB.change(() => {
-            this._inputChanged('reaptableField', 'repClass');
-        }).on("keydown", (evt: JQueryKeyEventObject) => {
-            if (evt.keyCode === 38) {
-                if (this.onUpTick) {
-                    this.onUpTick();
-                    evt.preventDefault();
-                }
-            } else if (evt.keyCode === 40) {
-                if (this.onDownTick) {
-                    this.onDownTick();
-                    evt.preventDefault();
-                }
-            }
+            //this._inputChanged('reaptableField', 'repClass');
+        }).on("input", (evt: JQueryKeyEventObject) => {
+            this._inputChanged('reaptableField', 'repClass', evt);
+            //this._inputChanged('reaptableField', evt.key);
+            //evt.preventDefault();
         });
         container.append(repLB);
         container.append(repWrap);
@@ -162,8 +130,8 @@ export class View {
 
     }
 
-    private _inputChanged(fieldName: string, JQselector: string): void {
-        let newValue = $("." + JQselector).val();
+    private _inputChanged(fieldName: string, JQselector: string, evt: JQueryKeyEventObject): void {
+        let newValue = $(evt.target).val()
         if (this.onInputChanged) {
             this.onInputChanged(newValue, fieldName);
         }
