@@ -9,8 +9,7 @@ export class View {
 
     private inputCurrentValue: string = "";
     private outputCurrentValue: string = "";
-    private taskFreqCurrentValue: string = "";
-    private repCurrentValue: string = "";
+
 
     constructor(private onInputChanged: Function) {
         this._init();
@@ -48,15 +47,15 @@ export class View {
         
 
         //output field
-        var impWrap = $("<div />");
-        impWrap.addClass("wrap combo emptyBorder");
+        var outWrap = $("<div />");
+        outWrap.addClass("wrap combo emptyBorder");
         var outLB = $("<Label />")
         outLB.addClass("workitemcontrol-label")
         outLB.text('Output');
         outLB.attr('for', 'outField');
         var outTB = $("<input />").attr("type", "text");
         outTB.attr("id", "outField")
-        impWrap.append(outTB);
+        outWrap.append(outTB);
         outTB.attr("aria-valuenow", this.outputCurrentValue);
         outTB.addClass("outputClass");
         outTB.change(() => {
@@ -66,7 +65,7 @@ export class View {
 
         });
         container.append(outLB);
-        container.append(impWrap);
+        container.append(outWrap);
         container.append(newLine)
 
 

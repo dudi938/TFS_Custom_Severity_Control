@@ -44,11 +44,9 @@ export class Controller {
                             this._view = new View((val, fieldName) => {
                             this._updateInternal(val, fieldName, true);
 
-                            
-                            //this._model.calcValueFromInputs(String(Repeatable), String(Implication), String(TaskFrequency), String(CalcSeverity));
                             this._model.calcValueFromInputs(this._view.getCurrentValues());
-                            this._updateInternal(this._model.getCurrentValue('severityField'), 'severityField', true);
-                            console.log('**Debug** CurrentValue = ' + this._model.getCurrentValue('severityField'))   
+                            this._updateInternal(this._model.getCurrentValue('outputField'), 'outputField', true);
+                            console.log('**Debug** CurrentValue = ' + this._model.getCurrentValue('outputField'))   
             
                         })
                     }, this._handleError
